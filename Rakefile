@@ -5,10 +5,16 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "mail_safe"
-    gem.summary = %Q{TODO}
+    gem.summary = %Q{Keep your ActionMailer emails from escaping into the wild during development.}
     gem.email = "myron.marston@gmail.com"
     gem.homepage = "http://github.com/myronmarston/mail_safe"
     gem.authors = ["Myron Marston"]
+
+    gem.add_dependency 'activesupport'
+    gem.add_dependency 'actionmailer'
+
+    gem.add_development_dependency 'Shoulda'
+    gem.add_development_dependency 'mocha'
 
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
