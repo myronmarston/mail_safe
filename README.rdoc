@@ -1,7 +1,65 @@
 = mail_safe
 
-Description goes here.
+Mail safe provides a safety net while you're developing an application that uses ActionMailer.
+It keeps emails from escaping into the wild.
+
+Once you've installed and configured this gem, you can rest assure that your app won't send
+emails to external email addresses.  Instead, emails that would normally be delivered to external
+addresses will be sent to an address of your choosing, and the body of the email will be appended
+with a note stating where the email was originally intended to go.
+
+== Download
+
+Github: http://github.com/myronmarston/mail_safe/tree/master
+
+Gem:
+  gem install myronmarston-mail_safe --source http://gems.github.com
+
+== Usage
+
+Load the gem in your non-production environments using Rails' 2.1+ gem support.  For example, I'm loading this in
+config/environments/development.rb and config/environments/staging.rb:
+
+  config.gem 'myronmarston-mail_safe', :lib => 'mail_safe', :source => 'http://gems.github.com'
+
+Be sure not to load this in your production or test environment, otherwise, your emails won't be sent to the proper
+recipients.  (The Rails test environment ensures that no emails are ever sent.)
+
+Next, configure mail safe.  Create a file at config/initializers/mail_safe.rb, similar to the following:
+
+  if defined?(MailSafe::Config)
+    MailSafe::Config.internal_address_definition = /.*@my-domain\.com/i
+    MailSafe::Config.replacement_address = 'me@my-domain.com'
+  end
+
+The internal address definition determines which addresses will be ignored (i.e. sent normally) and which will be replaced.  Email being sent to internal
+addresses will be sent normally; all other email addresses will be replaced by the replacement address.
+
+These settings can also take procs if you need something more flexible:
+
+  if defined?(MailSafe::Config)
+    # Emails sent to addresses longer than 15 characters long will be sent to the replacement address instead.
+    MailSafe::Config.internal_address_definition = lambda { |address| address.size <= 15 }
+
+    # Useful if your mail server allows + dynamic email addresses like gmail.
+    MailSafe::Config.replacement_address = lambda { |address| "my-address+#{address.gsub(/[\w\-.]/, '_')}@gmail.com" }
+  end
+
+When mail safe replaces an email address, it appends a notice to the bottom of the email body, such as:
+
+  **************************************************
+  This email originally had different recipients,
+  but MailSafe has prevented it from being sent to them.
+
+  The original recipients were:
+  - to:
+   - external-address-1@domain.com
+   - external-address-2@domain.com
+  - cc:
+   - external-address-3@domain.com
+
+  **************************************************
 
 == Copyright
 
-Copyright (c) 2009 Myron Marston. See LICENSE for details.
+Copyright (c) 2009 Myron Marston, Kashless.org. See LICENSE for details.
