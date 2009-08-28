@@ -2,14 +2,14 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mail_safe}
-  s.version = "0.0.0"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Myron Marston"]
   s.date = %q{2009-08-28}
   s.email = %q{myron.marston@gmail.com}
   s.extra_rdoc_files = ["README.rdoc", "LICENSE"]
-  s.files = ["README.rdoc", "lib/mail_safe", "lib/mail_safe/action_mailer.rb", "lib/mail_safe/address_replacer.rb", "lib/mail_safe/config.rb", "lib/mail_safe.rb", "test/config_test.rb", "test/mailer_test.rb", "test/mailers", "test/mailers/test_mailer.rb", "test/test_helper.rb", "LICENSE"]
+  s.files = ["README.rdoc", "VERSION.yml", "lib/mail_safe", "lib/mail_safe/action_mailer.rb", "lib/mail_safe/address_replacer.rb", "lib/mail_safe/config.rb", "lib/mail_safe.rb", "test/config_test.rb", "test/mailer_test.rb", "test/mailers", "test/mailers/test_mailer.rb", "test/test_helper.rb", "LICENSE"]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/myronmarston/mail_safe}
   s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
