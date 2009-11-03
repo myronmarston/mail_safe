@@ -10,17 +10,17 @@ with a note stating where the email was originally intended to go.
 
 == Download
 
-Github: http://github.com/myronmarston/mail_safe/tree/master
+Github: http://github.com/myronmarston/mail_safe
 
 Gem:
-  gem install myronmarston-mail_safe --source http://gems.github.com
+  gem install mail_safe --source http://gemcutter.org
 
 == Usage
 
 Load the gem in your non-production environments using Rails' 2.1+ gem support.  For example, I'm loading this in
 config/environments/development.rb and config/environments/staging.rb:
 
-  config.gem 'myronmarston-mail_safe', :lib => 'mail_safe', :source => 'http://gems.github.com'
+  config.gem 'mail_safe', :source => 'http://gemcutter.org'
 
 Be sure not to load this in your production or test environment, otherwise, your emails won't be sent to the proper
 recipients.  (The Rails test environment ensures that no emails are ever sent.)
