@@ -15,31 +15,40 @@ Github: http://github.com/myronmarston/mail_safe
 Gem:
   gem install mail_safe --source http://gemcutter.org
 
-== Usage
+== Installation
 
 Load the gem in your non-production environments using Rails' 2.1+ gem support.  For example, I'm loading this in
 config/environments/development.rb and config/environments/staging.rb:
 
   config.gem 'mail_safe', :source => 'http://gemcutter.org'
 
-Be sure not to load this in your production or test environment, otherwise, your emails won't be sent to the proper
-recipients.  (The Rails test environment ensures that no emails are ever sent.)
+IMPORTANT: Be sure not to load this in your production environment, otherwise, your emails won't be sent to the proper
+recipients.  In your test environment, you probably won't want this, either--rails ensures that no emails are ever sent in the
+test environment, and tests that check outbound email recipients may fail.
 
-Next, configure mail safe.  Create a file at config/initializers/mail_safe.rb, similar to the following:
+== Configuration
+
+In many cases, no configuration is necessary.  If you have git installed, and you've registered your email address
+with it (check with "git config user.email" in your shell), mail safe will use this.  All emails will be sent to this address.
+
+Otherwise, you can configure mail safe's behavior.  Create a file at config/initializers/mail_safe.rb, similar to the following:
 
   if defined?(MailSafe::Config)
     MailSafe::Config.internal_address_definition = /.*@my-domain\.com/i
     MailSafe::Config.replacement_address = 'me@my-domain.com'
   end
 
-The internal address definition determines which addresses will be ignored (i.e. sent normally) and which will be replaced.  Email being sent to internal
-addresses will be sent normally; all other email addresses will be replaced by the replacement address.
+The internal address definition determines which addresses will be ignored (i.e. sent normally) and which will be replaced.  Email
+being sent to internal addresses will be sent normally; all other email addresses will be replaced by the replacement address.
 
 These settings can also take procs if you need something more flexible:
 
   if defined?(MailSafe::Config)
-    # Emails sent to addresses longer than 15 characters long will be sent to the replacement address instead.
-    MailSafe::Config.internal_address_definition = lambda { |address| address.size <= 15 }
+    MailSafe::Config.internal_address_definition = lambda { |address|
+      address =~ /.*@domain1\.com/i ||
+      address =~ /.*@domain2\.com/i ||
+      address == 'full-address@domain.com'
+    }
 
     # Useful if your mail server allows + dynamic email addresses like gmail.
     MailSafe::Config.replacement_address = lambda { |address| "my-address+#{address.gsub(/[\w\-.]/, '_')}@gmail.com" }
