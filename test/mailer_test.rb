@@ -25,7 +25,7 @@ class MailerTest < Test::Unit::TestCase
     end
 
     should 'not add a post script to the body' do
-      assert_no_match TEXT_POSTSCRIPT_PHRASE, @email.body
+      assert_no_match TEXT_POSTSCRIPT_PHRASE, @email.body.to_s
     end
   end
 
@@ -66,7 +66,7 @@ class MailerTest < Test::Unit::TestCase
     end
 
     should 'add a plain text post script to the body' do
-      assert_match TEXT_POSTSCRIPT_PHRASE, @email.body
+      assert_match TEXT_POSTSCRIPT_PHRASE, @email.body.to_s
     end
   end
 
@@ -76,7 +76,7 @@ class MailerTest < Test::Unit::TestCase
     end
 
     should 'add an html post script to the body' do
-      assert_match HTML_POSTSCRIPT_PHRASE, @email.body
+      assert_match HTML_POSTSCRIPT_PHRASE, @email.body.to_s
     end
   end
 
@@ -86,11 +86,11 @@ class MailerTest < Test::Unit::TestCase
     end
 
     should 'add an text post script to the body of the text part' do
-      assert_match TEXT_POSTSCRIPT_PHRASE, @email.parts.detect { |p| p.content_type == 'text/plain' }.body
+      assert_match TEXT_POSTSCRIPT_PHRASE, @email.parts.detect { |p| p.content_type == 'text/plain' }.body.to_s
     end
 
     should 'add an html post script to the body of the html part' do
-      assert_match HTML_POSTSCRIPT_PHRASE, @email.parts.detect { |p| p.content_type == 'text/html' }.body
+      assert_match HTML_POSTSCRIPT_PHRASE, @email.parts.detect { |p| p.content_type == 'text/html' }.body.to_s
     end
   end
 end
