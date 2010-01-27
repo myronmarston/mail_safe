@@ -1,7 +1,6 @@
 module MailSafe
   class AddressReplacer
     class << self
-      include ::ActionMailer::Utils
       ADDRESS_TYPES = [:to, :cc, :bcc].freeze
 
       def replace_external_addresses(mail)
@@ -60,7 +59,7 @@ The original recipients were:
 **************************************************
         EOS
 
-        set_part_body(part, part.body + postscript)
+        add_postscript(part, postscript)
       end
 
       def add_html_postscript(part, replaced_addresses)
@@ -93,19 +92,29 @@ The original recipients were:
           </div>
         EOS
 
-        set_part_body(part, part.body + postscript)
+        add_postscript(part, postscript)
       end
 
-      def set_part_body(part, body)
-        # taken from action mailer:
-        # http://github.com/rails/rails/blob/05d7409ae5fd423be6f747ad553f659fcecbf548/actionmailer/lib/action_mailer/part.rb#L58-65
-        case part.content_transfer_encoding.to_s.downcase
-          when "base64" then
-            part.body = TMail::Base64.folding_encode(body)
-          when "quoted-printable"
-            part.body = [normalize_new_lines(body)].pack("M*")
-          else
-            part.body = body
+      if ActionMailer::VERSION::MAJOR < 3
+        include ::ActionMailer::Utils
+
+        def add_postscript(part, postscript)
+          body = part.body + postscript
+
+          # taken from action mailer:
+          # http://github.com/rails/rails/blob/05d7409ae5fd423be6f747ad553f659fcecbf548/actionmailer/lib/action_mailer/part.rb#L58-65
+          case part.content_transfer_encoding.to_s.downcase
+            when "base64" then
+              part.body = TMail::Base64.folding_encode(body)
+            when "quoted-printable"
+              part.body = [normalize_new_lines(body)].pack("M*")
+            else
+              part.body = body
+          end
+        end
+      else
+        def add_postscript(part, postscript)
+          part.body = part.body.to_s + postscript
         end
       end
     end
