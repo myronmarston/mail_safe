@@ -1,7 +1,7 @@
 module MailSafe
   class AddressReplacer
     class << self
-      include ::ActionMailer::Utils
+      # include ::ActionMailer::Utils
       ADDRESS_TYPES = [:to, :cc, :bcc].freeze
 
       def replace_external_addresses(mail)
