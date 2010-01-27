@@ -4,10 +4,18 @@ class MailerTest < Test::Unit::TestCase
   TEXT_POSTSCRIPT_PHRASE = /The original recipients were:/
   HTML_POSTSCRIPT_PHRASE = /<p>\s+The original recipients were:\s+<\/p>/
 
+  def deliver_message(message_name, *args)
+    if ActionMailer::VERSION::MAJOR < 3
+      TestMailer.send("deliver_#{message_name}", *args)
+    else
+      TestMailer.send(message_name, *args).deliver
+    end
+  end
+
   context 'Delivering a plain text email to internal addresses' do
     setup do
       MailSafe::Config.stubs(:is_internal_address? => true)
-      @email = TestMailer.deliver_plain_text_message(:to => 'internal-to@address.com', :bcc => 'internal-bcc@address.com', :cc => 'internal-cc@address.com')
+      @email = deliver_message(:plain_text_message, :to => 'internal-to@address.com', :bcc => 'internal-bcc@address.com', :cc => 'internal-cc@address.com')
     end
 
     should 'send the email to the original addresses' do
@@ -24,7 +32,7 @@ class MailerTest < Test::Unit::TestCase
   context 'Delivering a plain text email to external addresses' do
     setup do
       MailSafe::Config.stubs(:is_internal_address? => false, :get_replacement_address => 'replacement@example.com')
-      @email = TestMailer.deliver_plain_text_message(:to => 'internal-to@address.com', :bcc => 'internal-bcc@address.com', :cc => 'internal-cc@address.com')
+      @email = deliver_message(:plain_text_message, :to => 'internal-to@address.com', :bcc => 'internal-bcc@address.com', :cc => 'internal-cc@address.com')
     end
 
     should 'send the email to the replacement address' do
@@ -34,10 +42,10 @@ class MailerTest < Test::Unit::TestCase
     end
   end
 
-  def deliver_email_with_mix_of_internal_and_external_addresses(delivery_method)
+  def deliver_email_with_mix_of_internal_and_external_addresses(message_name)
     MailSafe::Config.internal_address_definition = /internal/
     MailSafe::Config.replacement_address = 'internal@domain.com'
-    @email = TestMailer.send(delivery_method,
+    @email = deliver_message(message_name,
       {
         :to  => ['internal1@address.com', 'external1@address.com'],
         :cc  => ['internal1@address.com', 'internal2@address.com'],
@@ -48,7 +56,7 @@ class MailerTest < Test::Unit::TestCase
 
   context 'Delivering a plain text email to a mix of internal and external addresses' do
     setup do
-      deliver_email_with_mix_of_internal_and_external_addresses(:deliver_plain_text_message)
+      deliver_email_with_mix_of_internal_and_external_addresses(:plain_text_message)
     end
 
     should 'send the email to the appropriate address' do
@@ -64,7 +72,7 @@ class MailerTest < Test::Unit::TestCase
 
   context 'Delivering an html email to a mix of internal and external addresses' do
     setup do
-      deliver_email_with_mix_of_internal_and_external_addresses(:deliver_html_message)
+      deliver_email_with_mix_of_internal_and_external_addresses(:html_message)
     end
 
     should 'add an html post script to the body' do
@@ -74,7 +82,7 @@ class MailerTest < Test::Unit::TestCase
 
   context 'Delivering a multipart email to a mix of internal and external addresses' do
     setup do
-      deliver_email_with_mix_of_internal_and_external_addresses(:deliver_multipart_message)
+      deliver_email_with_mix_of_internal_and_external_addresses(:multipart_message)
     end
 
     should 'add an text post script to the body of the text part' do

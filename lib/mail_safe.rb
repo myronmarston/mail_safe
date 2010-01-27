@@ -1,5 +1,6 @@
 require 'active_support'
 require 'action_mailer'
+require 'action_mailer/version'
 
 require 'mail_safe/config'
 require 'mail_safe/action_mailer'
