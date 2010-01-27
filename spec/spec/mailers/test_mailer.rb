@@ -4,7 +4,11 @@ end
 
 class TestMailer < ActionMailer::Base
   # template root must be set for multipart emails, or ActionMailer will throw an exception.
-  self.template_root = File.dirname(__FILE__)
+  if respond_to?(:view_paths)
+    view_paths.unshift File.dirname(__FILE__)
+  else
+    template_root File.dirname(__FILE__)
+  end
 
   def plain_text_message(options)
     setup_recipients(options)
