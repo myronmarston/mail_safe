@@ -12,3 +12,5 @@ module MailSafe
     end
   end
 end
+
+ActionMailer::Base.send(:include, MailSafe::ActionMailer) unless ActionMailer::Base.ancestors.include?(MailSafe::ActionMailer)
