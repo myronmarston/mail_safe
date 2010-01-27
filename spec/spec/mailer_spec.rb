@@ -25,7 +25,7 @@ describe MailSafe do
     end
 
     it 'does not add a post script to the body' do
-       @email.body.should_not =~ TEXT_POSTSCRIPT_PHRASE
+       @email.body.to_s.should_not =~ TEXT_POSTSCRIPT_PHRASE
     end
   end
 
@@ -67,7 +67,7 @@ describe MailSafe do
     end
 
     it 'adds a plain text post script to the body' do
-      @email.body.should =~ TEXT_POSTSCRIPT_PHRASE
+      @email.body.to_s.should =~ TEXT_POSTSCRIPT_PHRASE
     end
   end
 
@@ -77,7 +77,7 @@ describe MailSafe do
     end
 
     it 'adds an html post script to the body' do
-      @email.body.should =~ HTML_POSTSCRIPT_PHRASE
+      @email.body.to_s.should =~ HTML_POSTSCRIPT_PHRASE
     end
   end
 
@@ -87,7 +87,7 @@ describe MailSafe do
     end
 
     def part(type)
-      @email.parts.detect { |p| p.content_type == type }.body
+      @email.parts.detect { |p| p.content_type == type }.body.to_s
     end
 
     it 'adds a text post script to the body of the text part' do
