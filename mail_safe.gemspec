@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mail_safe}
-  s.version = "0.2.0"
+  s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Myron Marston"]
-  s.date = %q{2009-11-06}
+  s.date = %q{2010-02-24}
   s.email = %q{myron.marston@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -22,26 +22,29 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION.yml",
+     "ginger_scenarios.rb",
      "lib/mail_safe.rb",
-     "lib/mail_safe/action_mailer.rb",
      "lib/mail_safe/address_replacer.rb",
      "lib/mail_safe/config.rb",
+     "lib/mail_safe/rails2_hook.rb",
+     "lib/mail_safe/rails3_hook.rb",
      "mail_safe.gemspec",
-     "test/config_test.rb",
-     "test/mailer_test.rb",
-     "test/mailers/test_mailer.rb",
-     "test/test_helper.rb"
+     "spec/spec/config_spec.rb",
+     "spec/spec/mailer_spec.rb",
+     "spec/spec/mailers/test_mailer.rb",
+     "spec/spec/spec.opts",
+     "spec/spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/myronmarston/mail_safe}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{Keep your ActionMailer emails from escaping into the wild during development.}
   s.test_files = [
-    "test/config_test.rb",
-     "test/mailer_test.rb",
-     "test/mailers/test_mailer.rb",
-     "test/test_helper.rb"
+    "spec/spec/config_spec.rb",
+     "spec/spec/mailer_spec.rb",
+     "spec/spec/mailers/test_mailer.rb",
+     "spec/spec/spec_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -49,21 +52,15 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<activesupport>, [">= 0"])
-      s.add_runtime_dependency(%q<actionmailer>, [">= 0"])
-      s.add_development_dependency(%q<Shoulda>, [">= 0"])
-      s.add_development_dependency(%q<mocha>, [">= 0"])
+      s.add_runtime_dependency(%q<actionmailer>, [">= 1.3.6"])
+      s.add_development_dependency(%q<rspec>, [">= 1.2.9"])
     else
-      s.add_dependency(%q<activesupport>, [">= 0"])
-      s.add_dependency(%q<actionmailer>, [">= 0"])
-      s.add_dependency(%q<Shoulda>, [">= 0"])
-      s.add_dependency(%q<mocha>, [">= 0"])
+      s.add_dependency(%q<actionmailer>, [">= 1.3.6"])
+      s.add_dependency(%q<rspec>, [">= 1.2.9"])
     end
   else
-    s.add_dependency(%q<activesupport>, [">= 0"])
-    s.add_dependency(%q<actionmailer>, [">= 0"])
-    s.add_dependency(%q<Shoulda>, [">= 0"])
-    s.add_dependency(%q<mocha>, [">= 0"])
+    s.add_dependency(%q<actionmailer>, [">= 1.3.6"])
+    s.add_dependency(%q<rspec>, [">= 1.2.9"])
   end
 end
 
