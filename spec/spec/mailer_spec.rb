@@ -33,7 +33,7 @@ describe MailSafe do
     before(:each) do
       MailSafe::Config.stub(:is_internal_address?).and_return(false)
       MailSafe::Config.stub(:get_replacement_address).and_return('replacement@example.com')
-      @email = deliver_message(:plain_text_message, :to => 'internal-to@address.com', :bcc => 'internal-bcc@address.com', :cc => 'internal-cc@address.com')
+      @email = deliver_message(:plain_text_message, :to => 'external-to@address.com', :bcc => 'external-bcc@address.com', :cc => 'external-cc@address.com')
     end
 
     it 'sends the email to the replacement address' do
