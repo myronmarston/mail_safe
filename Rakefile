@@ -10,9 +10,7 @@ begin
     gem.homepage = "http://github.com/myronmarston/mail_safe"
     gem.authors = ["Myron Marston"]
 
-    gem.add_dependency 'activesupport', '>= 2.0.0'
-    gem.add_dependency 'actionmailer',  '>= 2.0.0'
-
+    gem.add_dependency 'actionmailer',  '>= 1.3.6'
     gem.add_development_dependency 'rspec', '>= 1.2.9'
 
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
