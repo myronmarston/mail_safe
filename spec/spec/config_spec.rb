@@ -11,17 +11,7 @@ describe MailSafe::Config do
 
     context 'when git is installed' do
       before(:each) do
-        backtick_call_count = 0
-        # mock out the ` method.  I can't find a simpler way to do this with mocha.
-        Kernel.class_eval do
-          define_method '`'.to_sym do |cmd|
-            backtick_call_count += 1
-            return "too many calls" if backtick_call_count > 1
-            if cmd == 'git config user.email'
-              "developer@domain.com\n"
-            end
-          end
-        end
+        MailSafe::Config.should_receive(:`).with('git config user.email').once.and_return("developer@domain.com\n")
       end
 
       it "guesses the developer's email address using git" do
@@ -35,17 +25,7 @@ describe MailSafe::Config do
 
     context 'when git is not installed' do
       before(:each) do
-        backtick_call_count = 0
-        # mock out the ` method.  I can't find a simpler way to do this with mocha.
-        Kernel.class_eval do
-          define_method '`'.to_sym do |cmd|
-            backtick_call_count += 1
-            return "too many calls" if backtick_call_count > 1
-            if cmd == 'git config user.email'
-              raise RuntimeError.new("Git is not installed")
-            end
-          end
-        end
+        MailSafe::Config.should_receive(:`).with('git config user.email').once.and_return(nil)
       end
 
       it "returns nil" do
