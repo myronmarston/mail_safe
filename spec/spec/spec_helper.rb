@@ -1,7 +1,7 @@
-require 'rubygems'
-require 'test/unit'
-require 'shoulda'
-require 'mocha'
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+require 'spec'
+require 'spec/autorun'
 
 begin
   require 'ruby-debug'
@@ -11,12 +11,11 @@ rescue LoadError
   # ruby-debug wasn't available so neither can the debugging be
 end
 
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
+require 'rubygems'
 require 'mail_safe'
 require 'mailers/test_mailer'
 
 ActionMailer::Base.delivery_method = :test
 
-class Test::Unit::TestCase
+Spec::Runner.configure do |config|
 end

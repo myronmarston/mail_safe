@@ -10,11 +10,10 @@ begin
     gem.homepage = "http://github.com/myronmarston/mail_safe"
     gem.authors = ["Myron Marston"]
 
-    gem.add_dependency 'activesupport'
-    gem.add_dependency 'actionmailer'
+    gem.add_dependency 'activesupport', '>= 2.0.0'
+    gem.add_dependency 'actionmailer',  '>= 2.0.0'
 
-    gem.add_development_dependency 'Shoulda'
-    gem.add_development_dependency 'mocha'
+    gem.add_development_dependency 'rspec', '>= 1.3.0'
 
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
@@ -22,28 +21,21 @@ rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
 end
 
-require 'rake/testtask'
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/*_test.rb'
-  test.verbose = false
+require 'spec/rake/spectask'
+Spec::Rake::SpecTask.new(:spec) do |spec|
+  spec.libs << 'lib' << 'spec'
+  spec.spec_files = FileList['spec/**/*_spec.rb']
 end
 
-begin
-  require 'rcov/rcovtask'
-  Rcov::RcovTask.new do |test|
-    test.libs << 'test'
-    test.pattern = 'test/**/*_test.rb'
-    test.verbose = true
-  end
-rescue LoadError
-  task :rcov do
-    abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
-  end
+Spec::Rake::SpecTask.new(:rcov) do |spec|
+  spec.libs << 'lib' << 'spec'
+  spec.pattern = 'spec/**/*_spec.rb'
+  spec.rcov = true
 end
 
+task :spec => :check_dependencies if defined?(Jeweler)
 
-task :default => :test
+task :default => :spec
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
