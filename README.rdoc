@@ -13,14 +13,14 @@ with a note stating where the email was originally intended to go.
 Github: http://github.com/myronmarston/mail_safe
 
 Gem:
-  gem install mail_safe --source http://gemcutter.org
+  gem install mail_safe
 
 == Installation
 
-Load the gem in your non-production environments using Rails' 2.1+ gem support.  For example, I'm loading this in
+Load the gem in the appropriate environments using Rails' 2.1+ gem support.  For example, I'm loading this in
 config/environments/development.rb and config/environments/staging.rb:
 
-  config.gem 'mail_safe', :source => 'http://gemcutter.org'
+  config.gem 'mail_safe'
 
 IMPORTANT: Be sure not to load this in your production environment, otherwise, your emails won't be sent to the proper
 recipients.  In your test environment, you probably won't want this, either--rails ensures that no emails are ever sent in the
@@ -71,7 +71,7 @@ When mail safe replaces an email address, it appends a notice to the bottom of t
 
 == Version Compatibility
 
-specs.should pass if RUBY_VERSION =~ /^1\.(8\.6|8\.7|9\.1)$/
+specs.should pass if RUBY_VERSION =~ /^1.(8.6|8.7|9.1)$/ && Rails.version =~ /^(1.2.6|2.\d.\d|3.0.0.beta)$/
 
 == Continuous Integration
 
