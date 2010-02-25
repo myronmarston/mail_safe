@@ -33,8 +33,8 @@ module MailSafe
         return unless replaced_addresses.size > 0
 
         case part.content_type
-          when 'text/plain' then add_text_postscript(part, replaced_addresses)
-          when 'text/html'  then add_html_postscript(part, replaced_addresses)
+          when %r{^text/plain} then add_text_postscript(part, replaced_addresses)
+          when %r{^text/html}  then add_html_postscript(part, replaced_addresses)
         end
 
         part.parts.each { |p| add_body_postscript(p, replaced_addresses) }
