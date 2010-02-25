@@ -6,7 +6,7 @@ module MailSafe
 
     def self.is_internal_address?(address)
       case internal_address_definition
-        when Regexp then address =~ internal_address_definition
+        when Regexp then !!(address =~ internal_address_definition)
         when Proc   then internal_address_definition.call(address)
         else
           return address.downcase == developer_email_address.downcase if developer_email_address
