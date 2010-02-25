@@ -69,6 +69,14 @@ When mail safe replaces an email address, it appends a notice to the bottom of t
 
   **************************************************
 
+== Version Compatibility
+
+specs.should pass if RUBY_VERSION =~ /^1\.(8\.6|8\.7|9\.1)$/
+
+== Continuous Integration
+
+You can see the current status of the spec suite, for Ruby 1.8.6 and 1.9.1, on {runcoderun.org}[http://runcoderun.com/myronmarston/mail_safe].
+
 == Copyright
 
 Copyright (c) 2009 Myron Marston, Kashless.org. See LICENSE for details.
