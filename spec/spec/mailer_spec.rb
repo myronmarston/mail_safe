@@ -12,6 +12,12 @@ describe MailSafe do
     end
   end
 
+  def have_addresses(*addresses)
+    simple_matcher("have addresses #{addresses.inspect}") do |array|
+      array.to_a.sort == addresses
+    end
+  end
+
   describe 'Delivering a plain text email to internal addresses' do
     before(:each) do
       MailSafe::Config.stub(:is_internal_address?).and_return(true)
@@ -19,9 +25,9 @@ describe MailSafe do
     end
 
     it 'sends the email to the original addresses' do
-      @email.to.should  =~ ['internal-to@address.com']
-      @email.cc.should  =~ ['internal-cc@address.com']
-      @email.bcc.should =~ ['internal-bcc@address.com']
+      @email.to.should  have_addresses('internal-to@address.com')
+      @email.cc.should  have_addresses('internal-cc@address.com')
+      @email.bcc.should have_addresses('internal-bcc@address.com')
     end
 
     it 'does not add a post script to the body' do
@@ -37,9 +43,9 @@ describe MailSafe do
     end
 
     it 'sends the email to the replacement address' do
-      @email.to.should  =~ ['replacement@example.com'] 
-      @email.cc.should  =~ ['replacement@example.com']
-      @email.bcc.should =~ ['replacement@example.com']
+      @email.to.should  have_addresses('replacement@example.com')
+      @email.cc.should  have_addresses('replacement@example.com')
+      @email.bcc.should have_addresses('replacement@example.com')
     end
   end
 
@@ -61,9 +67,9 @@ describe MailSafe do
     end
 
     it 'sends the email to the appropriate address' do
-      @email.to.should  =~ ['internal1@address.com', 'internal@domain.com']
-      @email.cc.should  =~ ['internal1@address.com', 'internal2@address.com']
-      @email.bcc.should =~ ['internal@domain.com',   'internal@domain.com']
+      @email.to.should  have_addresses('internal1@address.com', 'internal@domain.com')
+      @email.cc.should  have_addresses('internal1@address.com', 'internal2@address.com')
+      @email.bcc.should have_addresses('internal@domain.com',   'internal@domain.com')
     end
 
     it 'adds a plain text post script to the body' do
