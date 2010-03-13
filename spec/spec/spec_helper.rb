@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'spec'
 require 'spec/autorun'
 require 'rubygems'
+$LOAD_PATH << File.join(File.dirname(__FILE__), *%w[.. vendor ginger lib])
 require 'ginger'
 require 'mail_safe'
 require 'mailers/test_mailer'
