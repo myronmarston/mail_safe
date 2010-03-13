@@ -78,4 +78,4 @@ Unfortunately, ginger doesn't appear to work on ruby 1.9.1 yet.
 
 == Copyright
 
-Copyright (c) 2009 Myron Marston, Kashless.org. See LICENSE for details.
+Copyright (c) 2009-2010 Myron Marston, Kashless.org. See LICENSE for details.
