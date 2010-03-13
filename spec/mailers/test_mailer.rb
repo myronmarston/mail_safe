@@ -4,7 +4,7 @@ end
 
 class TestMailer < ActionMailer::Base
   # template root must be set for multipart emails, or ActionMailer will throw an exception.
-  if respond_to?(:view_paths)
+  if ActionMailer::VERSION::MAJOR == 3
     view_paths.unshift File.dirname(__FILE__)
   else
     template_root File.dirname(__FILE__)
