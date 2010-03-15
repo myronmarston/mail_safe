@@ -34,8 +34,7 @@ end
 
 task :spec => :check_dependencies if defined?(Jeweler)
 
-# ginger doesn't work on Ruby 1.9.1 :(.
-task :default => (RUBY_VERSION == '1.9.1' ? :spec : :ginger)
+task :default => :ginger
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
