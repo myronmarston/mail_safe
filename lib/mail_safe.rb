@@ -1,4 +1,3 @@
-require 'active_support'
 require 'action_mailer'
 require 'action_mailer/version'
 
