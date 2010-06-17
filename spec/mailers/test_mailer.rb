@@ -1,7 +1,3 @@
-if ActionMailer::VERSION::MAJOR == 3
-  require 'action_dispatch/http/mime_type' # needs to be required to avoid an error: uninitialized constant AbstractController::Collector::Mime
-end
-
 class TestMailer < ActionMailer::Base
   # template root must be set for multipart emails, or ActionMailer will throw an exception.
   if ActionMailer::VERSION::MAJOR > 2
