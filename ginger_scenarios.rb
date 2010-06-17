@@ -13,14 +13,14 @@ Ginger.configure do |config|
   config.aliases["action_pack"] = "actionpack"
   config.aliases["active_support"] = "activesupport"
 
-  # Rails 3 doesn't work on Ruby 1.8.6, so skip it.
-  unless RUBY_VERSION == '1.8.6'
+  # Rails 3 doesn't work on Ruby 1.8.6 or 1.9.1 so skip it.
+  if RUBY_VERSION == '1.8.7'
     rails3 = create_scenario('3.0.0.beta')
     rails3['mail'] = '2.1.3'
     config.scenarios << rails3
   end
 
-  %w( 2.3.5 2.3.4 2.3.3 2.3.2 ).each do |version|
+  %w( 2.3.8 2.3.5 2.3.4 2.3.3 2.3.2 ).each do |version|
     config.scenarios << create_scenario(version)
   end
 
