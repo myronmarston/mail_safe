@@ -93,15 +93,15 @@ describe MailSafe do
     end
 
     def part(type)
-      @email.parts.detect { |p| p.content_type == type }.body.to_s
+      @email.parts.detect { |p| p.content_type =~ type }.body.to_s
     end
 
     it 'adds a text post script to the body of the text part' do
-      part('text/plain').should =~ TEXT_POSTSCRIPT_PHRASE
+      part(/text\/plain/).should =~ TEXT_POSTSCRIPT_PHRASE
     end
 
     it 'adds an html post script to the body of the html part' do
-      part('text/html').should =~  HTML_POSTSCRIPT_PHRASE
+      part(/text\/html/).should =~  HTML_POSTSCRIPT_PHRASE
     end
   end
 end
