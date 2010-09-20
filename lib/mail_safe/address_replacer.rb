@@ -26,6 +26,22 @@ module MailSafe
         self.add_body_postscript(mail, replaced_addresses)
       end
 
+      def remove_external_addresses(mail)
+        ADDRESS_TYPES.each do |address_type|
+          if addresses = mail.send(address_type)
+            new_addresses = []
+
+            addresses.each do |a|
+              if MailSafe::Config.is_internal_address?(a)
+                new_addresses << a
+              end
+            end
+
+            mail.send("#{address_type}=", new_addresses)
+          end
+        end
+      end
+
       protected
 
       def add_body_postscript(part, replaced_addresses)
