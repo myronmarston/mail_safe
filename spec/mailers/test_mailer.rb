@@ -19,6 +19,8 @@ class TestMailer < ActionMailer::Base
     subject    "Html Message Test"
     body       "<p>Here is the message body.</p>"
     content_type 'text/html'
+
+    body(body.html_safe)  if body.respond_to?(:html_safe)
   end
 
   def multipart_message(options)
@@ -29,7 +31,10 @@ class TestMailer < ActionMailer::Base
     content_type 'multipart/alternative'
 
     part :content_type => 'text/plain', :body => "Here is the message body."
-    part :content_type => 'text/html',  :body => "<p>Here is the message body.</p>"
+
+    html_body = "<p>Here is the message body.</p>"
+    html_body = html_body.html_safe  if html_body.respond_to?(:html_safe)
+    part :content_type => 'text/html',  :body => html_body
   end
 
   protected

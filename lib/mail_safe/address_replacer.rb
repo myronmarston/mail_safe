@@ -91,7 +91,6 @@ The original recipients were:
             <hr/ >
           </div>
         EOS
-        postscript = postscript.html_safe  if postscript.respond_to?(:html_safe)
 
         add_postscript(part, postscript)
       end
@@ -115,6 +114,7 @@ The original recipients were:
         end
       else
         def add_postscript(part, postscript)
+          postscript = postscript.html_safe  if postscript.respond_to?(:html_safe)
           part.body = part.body.to_s + postscript
         end
       end
