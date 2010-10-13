@@ -1,6 +1,6 @@
-require 'spec'
-require 'spec/autorun'
+require 'rspec'
 require 'rubygems'
+
 $LOAD_PATH << File.join(File.dirname(__FILE__), *%w[.. vendor ginger lib])
 require 'ginger'
 require 'mail_safe'
@@ -15,6 +15,3 @@ rescue LoadError
 end
 
 ActionMailer::Base.delivery_method = :test
-
-Spec::Runner.configure do |config|
-end

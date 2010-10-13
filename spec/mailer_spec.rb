@@ -12,9 +12,9 @@ describe MailSafe do
     end
   end
 
-  def have_addresses(*addresses)
-    simple_matcher("have addresses #{addresses.inspect}") do |array|
-      array.to_a.sort == addresses
+  RSpec::Matchers.define :have_addresses do |expected|
+    match do |actual|
+      actual.to_a.include? expected
     end
   end
 
