@@ -12,9 +12,9 @@ describe MailSafe do
     end
   end
 
-  RSpec::Matchers.define :have_addresses do |expected|
+  RSpec::Matchers.define :have_addresses do |*expected|
     match do |actual|
-      actual.to_a.include? expected
+      actual.to_a.sort == expected
     end
   end
 
