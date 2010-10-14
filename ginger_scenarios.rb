@@ -15,12 +15,12 @@ Ginger.configure do |config|
 
   # Rails 3 doesn't work on Ruby 1.8.6 or 1.9.1 so skip it.
   if RUBY_VERSION == '1.8.7'
-    rails3 = create_scenario('3.0.0.beta4')
-    rails3['mail'] = '2.2.4'
+    rails3 = create_scenario('3.0.0')
+    rails3['mail'] = '2.2.7'
     config.scenarios << rails3
   end
 
-  %w( 2.3.8 2.3.5 2.3.4 2.3.3 2.3.2 ).each do |version|
+  %w( 2.3.9 2.3.8 2.3.5 2.3.4 2.3.3 2.3.2 ).each do |version|
     config.scenarios << create_scenario(version)
   end
 
