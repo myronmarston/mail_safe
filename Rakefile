@@ -50,6 +50,5 @@ task :ginger do
   $LOAD_PATH << File.join(*%w[vendor ginger lib])
   ARGV.clear
   ARGV << 'spec'
-  ARGV << '--trace'
   load File.join(*%w[vendor ginger bin ginger])
 end
