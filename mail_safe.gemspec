@@ -29,11 +29,11 @@ Gem::Specification.new do |s|
      "lib/mail_safe/rails2_hook.rb",
      "lib/mail_safe/rails3_hook.rb",
      "mail_safe.gemspec",
-     "spec/spec/config_spec.rb",
-     "spec/spec/mailer_spec.rb",
-     "spec/spec/mailers/test_mailer.rb",
-     "spec/spec/spec.opts",
-     "spec/spec/spec_helper.rb"
+     "spec/config_spec.rb",
+     "spec/mailer_spec.rb",
+     "spec/mailers/test_mailer.rb",
+     "spec/spec.opts",
+     "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/myronmarston/mail_safe}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Keep your ActionMailer emails from escaping into the wild during development.}
   s.test_files = [
     "spec/config_spec.rb",
-     spec/mailer_spec.rb",
+     "spec/mailer_spec.rb",
      "spec/mailers/test_mailer.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
