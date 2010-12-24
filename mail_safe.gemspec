@@ -41,10 +41,11 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{Keep your ActionMailer emails from escaping into the wild during development.}
   s.test_files = [
-    "spec/spec/config_spec.rb",
-     "spec/spec/mailer_spec.rb",
-     "spec/spec/mailers/test_mailer.rb",
-     "spec/spec/spec_helper.rb"
+    "spec/config_spec.rb",
+     spec/mailer_spec.rb",
+     "spec/mailers/test_mailer.rb",
+     "spec/spec.opts",
+     "spec/spec_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
