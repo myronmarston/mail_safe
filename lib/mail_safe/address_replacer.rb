@@ -10,6 +10,7 @@ module MailSafe
           if addresses = mail.send(address_type)
             new_addresses = []
 
+            addresses = [addresses] if !addresses.respond_to? :each
             addresses.each do |a|
               new_addresses << if MailSafe::Config.is_internal_address?(a)
                 a
