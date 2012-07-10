@@ -19,7 +19,7 @@ module MailSafe
               end
             end
 
-            mail.send("#{address_type}=", new_addresses)
+            mail.send("#{address_type}=", new_addresses.uniq)
           end
         end
 
