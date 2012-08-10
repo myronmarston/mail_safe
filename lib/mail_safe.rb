@@ -1,8 +1,9 @@
 require 'action_mailer'
 require 'action_mailer/version'
 
+require 'mail_safe/strategy/replace'
+require 'mail_safe/strategy/remove'
 require 'mail_safe/config'
-require 'mail_safe/address_replacer'
 
 if ActionMailer::VERSION::MAJOR < 3
   require 'mail_safe/rails2_hook'

@@ -104,4 +104,27 @@ describe MailSafe do
       part(/text\/html/).should =~  HTML_POSTSCRIPT_PHRASE
     end
   end
+
+  context 'using the Remove strategy' do
+    before(:each) do
+      MailSafe::Config.email_strategy = MailSafe::Strategy::Remove
+    end
+
+    it 'keeps internal email addresses' do
+      MailSafe::Config.stub(:is_internal_address?).and_return(true)
+      @email = deliver_message(:plain_text_message, :to => 'internal-to@address.com', :bcc => 'internal-bcc@address.com', :cc => 'internal-cc@address.com')
+      @email.to.should_not be_empty  
+      @email.cc.should_not  be_empty
+      @email.bcc.should_not be_empty
+    end
+
+    it 'strips external email addresses' do
+      MailSafe::Config.internal_address_definition = /internal/
+      @email = deliver_message(:plain_text_message, :to => 'internal-to@address.com', :bcc => 'external-bcc@address.com', :cc => 'external-cc@address.com')
+      @email.to.should_not be_empty
+      @email.cc.should  be_nil
+      @email.bcc.should be_nil
+    end
+
+  end
 end

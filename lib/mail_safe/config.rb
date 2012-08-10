@@ -3,7 +3,11 @@ module MailSafe
 
   class Config
     cattr_accessor :internal_address_definition
+    cattr_accessor :email_strategy
 
+    def self.email_strategy
+       @@email_strategy ||= MailSafe::Strategy::Replace
+    end
     def self.is_internal_address?(address)
       case internal_address_definition
         when Regexp then !!(address =~ internal_address_definition)

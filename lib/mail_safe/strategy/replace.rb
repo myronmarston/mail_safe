@@ -1,9 +1,9 @@
 module MailSafe
-  class AddressReplacer
-    class << self
+  module Strategy
+    class Replace
       ADDRESS_TYPES = [:to, :cc, :bcc].freeze
 
-      def replace_external_addresses(mail)
+      def process_email(mail)
         replaced_addresses = {}
 
         ADDRESS_TYPES.each do |address_type|
@@ -26,30 +26,14 @@ module MailSafe
         self.add_body_postscript(mail, replaced_addresses)
       end
 
-      def remove_external_addresses(mail)
-        ADDRESS_TYPES.each do |address_type|
-          if addresses = mail.send(address_type)
-            new_addresses = []
-
-            addresses.each do |a|
-              if MailSafe::Config.is_internal_address?(a)
-                new_addresses << a
-              end
-            end
-
-            mail.send("#{address_type}=", new_addresses)
-          end
-        end
-      end
-
       protected
 
       def add_body_postscript(part, replaced_addresses)
         return unless replaced_addresses.size > 0
 
         case part.content_type
-          when %r{^text/plain} then add_text_postscript(part, replaced_addresses)
-          when %r{^text/html}  then add_html_postscript(part, replaced_addresses)
+        when %r{^text/plain} then add_text_postscript(part, replaced_addresses)
+        when %r{^text/html}  then add_html_postscript(part, replaced_addresses)
         end
 
         part.parts.each { |p| add_body_postscript(p, replaced_addresses) }
@@ -70,7 +54,7 @@ This email originally had different recipients,
 but MailSafe has prevented it from being sent to them.
 
 The original recipients were:
-#{address_type_postscripts.join("\n\n")}
+        #{address_type_postscripts.join("\n\n")}
 
 **************************************************
         EOS
@@ -100,7 +84,7 @@ The original recipients were:
 
             <ul>
               <li>
-                #{address_type_postscripts.join("</li>\n<li>")}
+        #{address_type_postscripts.join("</li>\n<li>")}
               </li>
             </ul>
 
@@ -120,12 +104,12 @@ The original recipients were:
           # taken from action mailer:
           # http://github.com/rails/rails/blob/05d7409ae5fd423be6f747ad553f659fcecbf548/actionmailer/lib/action_mailer/part.rb#L58-65
           case part.content_transfer_encoding.to_s.downcase
-            when "base64" then
-              part.body = TMail::Base64.folding_encode(body)
-            when "quoted-printable"
-              part.body = [normalize_new_lines(body)].pack("M*")
-            else
-              part.body = body
+          when "base64" then
+            part.body = TMail::Base64.folding_encode(body)
+          when "quoted-printable"
+            part.body = [normalize_new_lines(body)].pack("M*")
+          else
+            part.body = body
           end
         end
       else
