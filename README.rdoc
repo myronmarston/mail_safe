@@ -69,6 +69,10 @@ When mail safe replaces an email address, it appends a notice to the bottom of t
 
   **************************************************
 
+== Removing addresses
+  In the event that you don't want any e-mails to be sent, you can change the strategy for mail_safe from Replace to Remove as so:
+    MailSafe::Config.email_strategy = MailSafe::Strategy::Replace
+
 == Version Compatibility and Continuous Integration
 
 Mail safe works on ruby {1.8.6}[http://integrity186.heroku.com/mail-safe], {1.8.7}[http://integrity187.heroku.com/mail-safe] and {1.9.1}[http://integrity191.heroku.com/mail-safe],
