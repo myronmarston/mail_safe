@@ -20,32 +20,32 @@ describe MailSafe do
 
   describe 'Delivering a plain text email to internal addresses' do
     before(:each) do
-      MailSafe::Config.stub(:is_internal_address?).and_return(true)
+      allow(MailSafe::Config).to receive(:is_internal_address?).and_return(true)
       @email = deliver_message(:plain_text_message, :to => 'internal-to@address.com', :bcc => 'internal-bcc@address.com', :cc => 'internal-cc@address.com')
     end
 
     it 'sends the email to the original addresses' do
-      @email.to.should  have_addresses('internal-to@address.com')
-      @email.cc.should  have_addresses('internal-cc@address.com')
-      @email.bcc.should have_addresses('internal-bcc@address.com')
+      expect(@email.to).to  have_addresses('internal-to@address.com')
+      expect(@email.cc).to  have_addresses('internal-cc@address.com')
+      expect(@email.bcc).to have_addresses('internal-bcc@address.com')
     end
 
     it 'does not add a post script to the body' do
-       @email.body.to_s.should_not =~ TEXT_POSTSCRIPT_PHRASE
+       expect(@email.body.to_s).not_to match(TEXT_POSTSCRIPT_PHRASE)
     end
   end
 
   describe 'Delivering a plain text email to external addresses' do
     before(:each) do
-      MailSafe::Config.stub(:is_internal_address?).and_return(false)
-      MailSafe::Config.stub(:get_replacement_address).and_return('replacement@example.com')
+      allow(MailSafe::Config).to receive(:is_internal_address?).and_return(false)
+      allow(MailSafe::Config).to receive(:get_replacement_address).and_return('replacement@example.com')
       @email = deliver_message(:plain_text_message, :to => 'external-to@address.com', :bcc => 'external-bcc@address.com', :cc => 'external-cc@address.com')
     end
 
     it 'sends the email to the replacement address' do
-      @email.to.should  have_addresses('replacement@example.com')
-      @email.cc.should  have_addresses('replacement@example.com')
-      @email.bcc.should have_addresses('replacement@example.com')
+      expect(@email.to).to  have_addresses('replacement@example.com')
+      expect(@email.cc).to  have_addresses('replacement@example.com')
+      expect(@email.bcc).to have_addresses('replacement@example.com')
     end
   end
 
@@ -67,13 +67,13 @@ describe MailSafe do
     end
 
     it 'sends the email to the appropriate address' do
-      @email.to.should  have_addresses('internal1@address.com', 'internal@domain.com')
-      @email.cc.should  have_addresses('internal1@address.com', 'internal2@address.com')
-      @email.bcc.should have_addresses('internal@domain.com',   'internal@domain.com')
+      expect(@email.to).to  have_addresses('internal1@address.com', 'internal@domain.com')
+      expect(@email.cc).to  have_addresses('internal1@address.com', 'internal2@address.com')
+      expect(@email.bcc).to have_addresses('internal@domain.com',   'internal@domain.com')
     end
 
     it 'adds a plain text post script to the body' do
-      @email.body.to_s.should =~ TEXT_POSTSCRIPT_PHRASE
+      expect(@email.body.to_s).to match(TEXT_POSTSCRIPT_PHRASE)
     end
   end
 
@@ -83,7 +83,7 @@ describe MailSafe do
     end
 
     it 'adds an html post script to the body' do
-      @email.body.to_s.should =~ HTML_POSTSCRIPT_PHRASE
+      expect(@email.body.to_s).to match(HTML_POSTSCRIPT_PHRASE)
     end
   end
 
@@ -97,11 +97,11 @@ describe MailSafe do
     end
 
     it 'adds a text post script to the body of the text part' do
-      part(/text\/plain/).should =~ TEXT_POSTSCRIPT_PHRASE
+      expect(part(/text\/plain/)).to match(TEXT_POSTSCRIPT_PHRASE)
     end
 
     it 'adds an html post script to the body of the html part' do
-      part(/text\/html/).should =~  HTML_POSTSCRIPT_PHRASE
+      expect(part(/text\/html/)).to match(HTML_POSTSCRIPT_PHRASE)
     end
   end
 end
