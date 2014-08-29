@@ -4,3 +4,24 @@ coverage
 rdoc
 pkg
 .ginger
+
+# Ignore personal RubyMine files. http://devnet.jetbrains.net/docs/DOC-1192
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/encodings.xml
+.idea/jsLinters
+.idea/code.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/scopes
+.idea/vcs.xml
+.idea/mail_safe.iml
+.idea/.name
+.idea/.generators
+.idea/.rakeTasks
+.idea/inspectionProfiles
+.idea/sqldialects.xml
+.idea/runConfigurations
+.idea/dictionaries/*
