@@ -41,9 +41,9 @@ Gem::Specification.new do |s|
   s.summary = %q{Keep your ActionMailer emails from escaping into the wild during development.}
   s.test_files = [
     "spec/config_spec.rb",
-     "spec/mailer_spec.rb",
-     "spec/mailers/test_mailer.rb",
-     "spec/spec_helper.rb"
+    "spec/mailer_spec.rb",
+    "spec/mailers/test_mailer.rb",
+    "spec/spec_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
