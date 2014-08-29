@@ -17,7 +17,7 @@ begin
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
-  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+  puts "Jeweler not available. Install it with: sudo gem install jeweler"
 end
 
 require "rspec/core/rake_task"
@@ -29,7 +29,7 @@ task :spec => :check_dependencies if defined?(Jeweler)
 
 task :default => :ginger
 
-require 'rake/rdoctask'
+require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
   if File.exist?('VERSION.yml')
     require 'yaml' unless defined?(YAML) # seems to be needed for ruby 1.9.1
