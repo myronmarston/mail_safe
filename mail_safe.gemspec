@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION.yml",
      "autotest/discover.rb",
-     "ginger_scenarios.rb",
      "lib/mail_safe.rb",
      "lib/mail_safe/address_replacer.rb",
      "lib/mail_safe/config.rb",
