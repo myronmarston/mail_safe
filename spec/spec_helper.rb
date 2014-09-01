@@ -1,5 +1,3 @@
-require 'rubygems'
-
 require 'mail_safe'
 require 'mailers/test_mailer'
 
