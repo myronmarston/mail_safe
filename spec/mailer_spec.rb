@@ -17,7 +17,10 @@ describe MailSafe do
   describe 'Delivering a plain text email to internal addresses' do
     before(:each) do
       allow(MailSafe::Config).to receive(:is_internal_address?).and_return(true)
-      @email = deliver_message(:plain_text_message, :to => 'internal-to@address.com', :bcc => 'internal-bcc@address.com', :cc => 'internal-cc@address.com')
+      @email = deliver_message(:plain_text_message,
+                               :to => 'internal-to@address.com',
+                               :bcc => 'internal-bcc@address.com',
+                               :cc => 'internal-cc@address.com')
     end
 
     it 'sends the email to the original addresses' do
