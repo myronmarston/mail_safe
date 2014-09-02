@@ -65,7 +65,7 @@ describe MailSafe do
     it 'sends the email to the appropriate address' do
       expect(@email.to).to  have_addresses('internal1@address.com', 'internal@domain.com')
       expect(@email.cc).to  have_addresses('internal1@address.com', 'internal2@address.com')
-      expect(@email.bcc).to have_addresses('internal@domain.com',   'internal@domain.com')
+      expect(@email.bcc).to have_addresses('internal@domain.com')
     end
 
     it 'adds a plain text post script to the body' do
