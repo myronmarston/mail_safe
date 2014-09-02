@@ -5,11 +5,7 @@ describe MailSafe do
   HTML_POSTSCRIPT_PHRASE = /<p>\s+The original recipients were:\s+<\/p>/
 
   def deliver_message(message_name, *args)
-    if ActionMailer::VERSION::MAJOR < 3
-      TestMailer.send("deliver_#{message_name}", *args)
-    else
-      TestMailer.send(message_name, *args).deliver
-    end
+    TestMailer.send(message_name, *args).deliver
   end
 
   RSpec::Matchers.define :have_addresses do |*expected|
