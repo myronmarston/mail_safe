@@ -1,4 +1,4 @@
-(https://travis-ci.org/watu/mail_safe.svg?branch=master)
+![Build Status](https://travis-ci.org/watu/mail_safe.svg?branch=master)
 
 # mail_safe
 
@@ -73,7 +73,8 @@ When mail safe replaces an email address, it appends a notice to the bottom of t
 
 ## Version Compatibility and Continuous Integration
 
-TODO: use Travis.
+Tested with Travis using Ruby 1.9.3, 2.0.0 and 2.1.2 against actionmailer 3.2, 4.0 and 4.1. ![Build Status](https://travis-ci.org/watu/mail_safe.svg?branch=master)
+
 
 ## Copyright
 
