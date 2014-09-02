@@ -13,11 +13,11 @@ module MailSafe
             addresses = [addresses] if !addresses.respond_to? :each
             addresses.each do |a|
               new_addresses << if MailSafe::Config.is_internal_address?(a)
-                a
-              else
-                (replaced_addresses[address_type] ||= []) << a
-                MailSafe::Config.get_replacement_address(a)
-              end
+                                 a
+                               else
+                                 (replaced_addresses[address_type] ||= []) << a
+                                 MailSafe::Config.get_replacement_address(a)
+                               end
             end
 
             mail.send("#{address_type}=", new_addresses.uniq)
