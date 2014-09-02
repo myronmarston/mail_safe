@@ -14,13 +14,13 @@ with a note stating where the email was originally intended to go.
 
 Github: http://github.com/myronmarston/mail_safe
 
-Gem: gem install mail_safe
+Gem: `gem install mail_safe`
 
 ## Installation
 
 Load the gem in the appropriate environments using Rails' 3.2+ gem support.  For example, I'm loading this in Gemfile as:
 
-  ```gem "mail_safe", group: [:development, :staging]```
+  `gem "mail_safe", group: [:development, :staging]`
 
 IMPORTANT: Be sure not to load this in your production environment, otherwise, your emails won't be sent to the proper
 recipients. In your test environment, you probably won't want this either. Rails ensures that no emails are ever sent in the
