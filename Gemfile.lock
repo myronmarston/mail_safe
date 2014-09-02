@@ -70,7 +70,7 @@ PLATFORMS
 
 DEPENDENCIES
   appraisal
-  bundler (~> 1.7)
+  bundler
   mail_safe!
-  rake (~> 10.0)
+  rake
   rspec (~> 3.0, >= 3.0.0)
