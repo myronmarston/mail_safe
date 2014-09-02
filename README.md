@@ -1,6 +1,6 @@
 (https://travis-ci.org/watu/mail_safe.svg?branch=master)
 
-= mail_safe
+# mail_safe
 
 Mail safe provides a safety net while you're developing an application that uses ActionMailer.
 It keeps emails from escaping into the wild.
@@ -10,14 +10,14 @@ emails to external email addresses.  Instead, emails that would normally be deli
 addresses will be sent to an address of your choosing, and the body of the email will be appended
 with a note stating where the email was originally intended to go.
 
-== Download
+## Download
 
 Github: http://github.com/myronmarston/mail_safe
 
 Gem:
   gem install mail_safe
 
-== Installation
+## Installation
 
 Load the gem in the appropriate environments using Rails' 2.1+ gem support.  For example, I'm loading this in
 config/environments/development.rb and config/environments/staging.rb:
@@ -28,7 +28,7 @@ IMPORTANT: Be sure not to load this in your production environment, otherwise, y
 recipients.  In your test environment, you probably won't want this, either--rails ensures that no emails are ever sent in the
 test environment, and tests that check outbound email recipients may fail.
 
-== Configuration
+## Configuration
 
 In many cases, no configuration is necessary.  If you have git installed, and you've registered your email address
 with it (check with "git config user.email" in your shell), mail safe will use this.  All emails will be sent to this address.
@@ -71,10 +71,10 @@ When mail safe replaces an email address, it appends a notice to the bottom of t
 
   **************************************************
 
-== Version Compatibility and Continuous Integration
+## Version Compatibility and Continuous Integration
 
 TODO: use Travis.
 
-== Copyright
+## Copyright
 
 Copyright (c) 2009-2010 Myron Marston, Kashless.org. See LICENSE for details.
