@@ -29,10 +29,11 @@ module MailSafe
     def self.developer_email_address
       unless defined?(@@developer_email_address)
         @@developer_email_address = begin
-          `git config user.email`.chomp
+          `git config user.email`.strip
         rescue
           nil
         end
+        @@developer_email_address = nil  if @@developer_email_address.empty?
       end
 
       @@developer_email_address
