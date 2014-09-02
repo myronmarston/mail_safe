@@ -19,13 +19,12 @@ Gem:
 
 ## Installation
 
-Load the gem in the appropriate environments using Rails' 2.1+ gem support.  For example, I'm loading this in
-config/environments/development.rb and config/environments/staging.rb:
+Load the gem in the appropriate environments using Rails' 3.2+ gem support.  For example, I'm loading this in Gemfile as:
 
-  config.gem 'mail_safe'
+  gem "mail_safe", group: [:development, :staging]
 
 IMPORTANT: Be sure not to load this in your production environment, otherwise, your emails won't be sent to the proper
-recipients.  In your test environment, you probably won't want this, either--rails ensures that no emails are ever sent in the
+recipients. In your test environment, you probably won't want this either. Rails ensures that no emails are ever sent in the
 test environment, and tests that check outbound email recipients may fail.
 
 ## Configuration
