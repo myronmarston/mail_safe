@@ -1,5 +1,6 @@
 require 'action_mailer'
 require 'action_mailer/version'
+require 'active_support/core_ext/class/attribute_accessors' # to be able to use cattr_accessor
 
 require 'mail_safe/config'
 require 'mail_safe/address_replacer'
