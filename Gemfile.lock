@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     mail_safe (0.3.2)
-      actionmailer (>= 1.3.6)
+      actionmailer (>= 3.0.0)
 
 GEM
   remote: https://rubygems.org/
