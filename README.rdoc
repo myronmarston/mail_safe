@@ -1,3 +1,5 @@
+(https://travis-ci.org/watu/mail_safe.svg?branch=master)
+
 = mail_safe
 
 Mail safe provides a safety net while you're developing an application that uses ActionMailer.
