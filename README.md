@@ -1,4 +1,9 @@
-![Build Status](https://travis-ci.org/watu/mail_safe.svg?branch=master)
+[![Build Status](https://travis-ci.org/watu/mail_safe.png?branch=master)](https://travis-ci.org/watu/mail_safe)
+[![Coverage Status](https://coveralls.io/repos/watu/mail_safe/badge.png?branch=master)](https://coveralls.io/r/watu/mail_safe?branch=master)
+[![Code Climate](https://codeclimate.com/github/watu/mail_safe.png)](https://codeclimate.com/github/watu/mail_safe)
+[![Inline docs](http://inch-ci.org/github/watu/mail_safe.png)](http://inch-ci.org/github/watu/mail_safe)
+[![Gem Version](https://badge.fury.io/rb/mail_safe.png)](http://badge.fury.io/rb/mail_safe)
+
 
 # mail_safe
 
