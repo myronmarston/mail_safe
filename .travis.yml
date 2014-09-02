@@ -4,5 +4,6 @@ rvm:
   - "2.0.0"
   - "2.1.2"
 gemfile:
-  - gemfiles/actionmailer_3.gemfile
-  - gemfiles/actionmailer_4.gemfile
+  - gemfiles/actionmailer_3_2.gemfile
+  - gemfiles/actionmailer_4_0.gemfile
+  - gemfiles/actionmailer_4_1.gemfile
