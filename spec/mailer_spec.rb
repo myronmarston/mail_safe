@@ -5,11 +5,7 @@ describe MailSafe do
   HTML_POSTSCRIPT_PHRASE = /<p>\s+The original recipients were:\s+<\/p>/
 
   def deliver_message(message_name, *args)
-    if ActionMailer::VERSION::MAJOR < 3
-      TestMailer.send("deliver_#{message_name}", *args)
-    else
-      TestMailer.send(message_name, *args).deliver
-    end
+    TestMailer.send(message_name, *args).deliver
   end
 
   RSpec::Matchers.define :have_addresses do |*expected|
@@ -21,7 +17,10 @@ describe MailSafe do
   describe 'Delivering a plain text email to internal addresses' do
     before(:each) do
       allow(MailSafe::Config).to receive(:is_internal_address?).and_return(true)
-      @email = deliver_message(:plain_text_message, :to => 'internal-to@address.com', :bcc => 'internal-bcc@address.com', :cc => 'internal-cc@address.com')
+      @email = deliver_message(:plain_text_message,
+                               :to => 'internal-to@address.com',
+                               :bcc => 'internal-bcc@address.com',
+                               :cc => 'internal-cc@address.com')
     end
 
     it 'sends the email to the original addresses' do
@@ -32,6 +31,26 @@ describe MailSafe do
 
     it 'does not add a post script to the body' do
        expect(@email.body.to_s).not_to match(TEXT_POSTSCRIPT_PHRASE)
+    end
+  end
+
+  describe 'Delivering a plain text email to internal addresses with names' do
+    before(:each) do
+      allow(MailSafe::Config).to receive(:is_internal_address?).and_return(true)
+      @email = deliver_message(:plain_text_message,
+                               :to => 'Internal To <internal-to@address.com>',
+                               :bcc => 'Internal Bcc <internal-bcc@address.com>',
+                               :cc => 'Internal Cc <internal-cc@address.com>')
+    end
+
+    it 'sends the email to the original addresses' do
+      expect(@email[:to].value).to have_addresses('Internal To <internal-to@address.com>')
+      expect(@email[:cc].value).to have_addresses('Internal Cc <internal-cc@address.com>')
+      expect(@email[:bcc].value).to have_addresses('Internal Bcc <internal-bcc@address.com>')
+    end
+
+    it 'does not add a post script to the body' do
+      expect(@email.body.to_s).not_to match(TEXT_POSTSCRIPT_PHRASE)
     end
   end
 
@@ -69,7 +88,7 @@ describe MailSafe do
     it 'sends the email to the appropriate address' do
       expect(@email.to).to  have_addresses('internal1@address.com', 'internal@domain.com')
       expect(@email.cc).to  have_addresses('internal1@address.com', 'internal2@address.com')
-      expect(@email.bcc).to have_addresses('internal@domain.com',   'internal@domain.com')
+      expect(@email.bcc).to have_addresses('internal@domain.com')
     end
 
     it 'adds a plain text post script to the body' do
