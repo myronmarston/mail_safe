@@ -31,6 +31,26 @@ describe MailSafe do
     end
   end
 
+  describe 'Delivering a plain text email to internal addresses with names' do
+    before(:each) do
+      allow(MailSafe::Config).to receive(:is_internal_address?).and_return(true)
+      @email = deliver_message(:plain_text_message,
+                               :to => 'Internal To <internal-to@address.com>',
+                               :bcc => 'Internal Bcc <internal-bcc@address.com>',
+                               :cc => 'Internal Cc <internal-cc@address.com>')
+    end
+
+    it 'sends the email to the original addresses' do
+      expect(@email[:to].value).to have_addresses('Internal To <internal-to@address.com>')
+      expect(@email[:cc].value).to have_addresses('Internal Cc <internal-cc@address.com>')
+      expect(@email[:bcc].value).to have_addresses('Internal Bcc <internal-bcc@address.com>')
+    end
+
+    it 'does not add a post script to the body' do
+      expect(@email.body.to_s).not_to match(TEXT_POSTSCRIPT_PHRASE)
+    end
+  end
+
   describe 'Delivering a plain text email to external addresses' do
     before(:each) do
       allow(MailSafe::Config).to receive(:is_internal_address?).and_return(false)
