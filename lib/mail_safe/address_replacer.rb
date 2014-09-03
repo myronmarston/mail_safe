@@ -7,7 +7,7 @@ module MailSafe
         replaced_addresses = {}
 
         ADDRESS_TYPES.each do |address_type|
-          if addresses = mail[address_type].value
+          if addresses = mail[address_type].try(:value)
             new_addresses = []
 
             addresses = [addresses] if !addresses.respond_to? :each

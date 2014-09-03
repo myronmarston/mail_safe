@@ -14,6 +14,18 @@ describe MailSafe do
     end
   end
 
+  describe 'Delivering a plain text email to internal addresses with empty fields' do
+    before(:each) do
+      allow(MailSafe::Config).to receive(:is_internal_address?).and_return(true)
+      @email = deliver_message(:plain_text_message,
+                               :to => 'internal-to@address.com')
+    end
+
+    it 'sends the email to the original addresses and dont fail' do
+      expect(@email[:to].value).to have_addresses('internal-to@address.com')
+    end
+  end
+
   describe 'Delivering a plain text email to internal addresses' do
     before(:each) do
       allow(MailSafe::Config).to receive(:is_internal_address?).and_return(true)
