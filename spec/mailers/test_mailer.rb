@@ -32,8 +32,6 @@ class TestMailer < ActionMailer::Base
   protected
 
   def setup_recipients(options)
-    {to: options[:to],
-     cc: options[:cc],
-     bcc: options[:bcc]}
+    options.select { |k,_| [:to, :cc, :bcc].include? k }
   end
 end
