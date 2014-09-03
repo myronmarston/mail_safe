@@ -10,8 +10,7 @@ module MailSafe
           if addresses = mail[address_type].try(:value)
             new_addresses = []
 
-            addresses = [addresses] if !addresses.respond_to? :each
-            addresses.each do |a|
+            Array(addresses).each do |a|
               new_addresses << if MailSafe::Config.is_internal_address?(a)
                                  a
                                else
@@ -19,7 +18,6 @@ module MailSafe
                                  MailSafe::Config.get_replacement_address(a)
                                end
             end
-
             mail.send("#{address_type}=", new_addresses.uniq)
           end
         end
