@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{Mail safe provides a safety net while you"re developing an application that uses ActionMailer.
                           It keeps emails from escaping into the wild.
 
-                          Once you"ve installed and configured this gem, you can rest assure that your app won"t send
+                          Once you"ve installed and configured this gem, you can rest assure that your app won't send
                           emails to external email addresses. Instead, emails that would normally be delivered to external
                           addresses will be sent to an address of your choosing, and the body of the email will be appended
                           with a note stating where the email was originally intended to go.}
