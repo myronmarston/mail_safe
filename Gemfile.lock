@@ -3,7 +3,6 @@ PATH
   specs:
     mail_safe (0.3.2)
       actionmailer (>= 3.0.0)
-      coveralls
 
 GEM
   remote: https://rubygems.org/
@@ -92,6 +91,7 @@ PLATFORMS
 DEPENDENCIES
   appraisal
   bundler
+  coveralls
   mail_safe!
   rake
   rspec (~> 3.0, >= 3.0.0)
