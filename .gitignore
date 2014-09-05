@@ -3,4 +3,4 @@
 coverage
 rdoc
 pkg
-.ginger
+gemfiles/*.lock

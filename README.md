@@ -1,4 +1,11 @@
-= mail_safe
+[![Build Status](https://travis-ci.org/watu/mail_safe.png?branch=master)](https://travis-ci.org/watu/mail_safe)
+[![Coverage Status](https://coveralls.io/repos/watu/mail_safe/badge.png?branch=master)](https://coveralls.io/r/watu/mail_safe?branch=master)
+[![Code Climate](https://codeclimate.com/github/watu/mail_safe.png)](https://codeclimate.com/github/watu/mail_safe)
+[![Inline docs](http://inch-ci.org/github/watu/mail_safe.png)](http://inch-ci.org/github/watu/mail_safe)
+[![Gem Version](https://badge.fury.io/rb/mail_safe.png)](http://badge.fury.io/rb/mail_safe)
+
+
+# mail_safe
 
 Mail safe provides a safety net while you're developing an application that uses ActionMailer.
 It keeps emails from escaping into the wild.
@@ -8,41 +15,42 @@ emails to external email addresses.  Instead, emails that would normally be deli
 addresses will be sent to an address of your choosing, and the body of the email will be appended
 with a note stating where the email was originally intended to go.
 
-== Download
+## Download
 
 Github: http://github.com/myronmarston/mail_safe
 
-Gem:
-  gem install mail_safe
+Gem: `gem install mail_safe`
 
-== Installation
+## Installation
 
-Load the gem in the appropriate environments using Rails' 2.1+ gem support.  For example, I'm loading this in
-config/environments/development.rb and config/environments/staging.rb:
+Load the gem in the appropriate environments using Rails' 3.2+ gem support.  For example, I'm loading this in Gemfile as:
 
-  config.gem 'mail_safe'
+  `gem "mail_safe", group: [:development, :staging]`
 
 IMPORTANT: Be sure not to load this in your production environment, otherwise, your emails won't be sent to the proper
-recipients.  In your test environment, you probably won't want this, either--rails ensures that no emails are ever sent in the
+recipients. In your test environment, you probably won't want this either. Rails ensures that no emails are ever sent in the
 test environment, and tests that check outbound email recipients may fail.
 
-== Configuration
+## Configuration
 
 In many cases, no configuration is necessary.  If you have git installed, and you've registered your email address
 with it (check with "git config user.email" in your shell), mail safe will use this.  All emails will be sent to this address.
 
 Otherwise, you can configure mail safe's behavior.  Create a file at config/initializers/mail_safe.rb, similar to the following:
 
+```ruby
   if defined?(MailSafe::Config)
     MailSafe::Config.internal_address_definition = /.*@my-domain\.com/i
     MailSafe::Config.replacement_address = 'me@my-domain.com'
   end
+```
 
 The internal address definition determines which addresses will be ignored (i.e. sent normally) and which will be replaced.  Email
 being sent to internal addresses will be sent normally; all other email addresses will be replaced by the replacement address.
 
 These settings can also take procs if you need something more flexible:
 
+```ruby
   if defined?(MailSafe::Config)
     MailSafe::Config.internal_address_definition = lambda { |address|
       address =~ /.*@domain1\.com/i ||
@@ -53,9 +61,11 @@ These settings can also take procs if you need something more flexible:
     # Useful if your mail server allows + dynamic email addresses like gmail.
     MailSafe::Config.replacement_address = lambda { |address| "my-address+#{address.gsub(/[\w\-.]/, '_')}@gmail.com" }
   end
+```
 
 When mail safe replaces an email address, it appends a notice to the bottom of the email body, such as:
 
+```
   **************************************************
   This email originally had different recipients,
   but MailSafe has prevented it from being sent to them.
@@ -68,13 +78,14 @@ When mail safe replaces an email address, it appends a notice to the bottom of t
    - external-address-3@domain.com
 
   **************************************************
+```
+## Version Compatibility and Continuous Integration
 
-== Version Compatibility and Continuous Integration
+Tested with [Travis](https://travis-ci.org/watu/mail_safe) using Ruby 1.9, 2.0 and 2.1 against actionmailer 3.2, 4.0 and 4.1. ![Build Status](https://travis-ci.org/watu/mail_safe.svg?branch=master)
 
-Mail safe works on ruby {1.8.6}[http://integrity186.heroku.com/mail-safe], {1.8.7}[http://integrity187.heroku.com/mail-safe] and {1.9.1}[http://integrity191.heroku.com/mail-safe],
-and any version of actionmailer since 1.3.6 (the version used by rails 1.2.6), including 3.0.0.  The builds (linked to above)
-use {ginger}[https://github.com/pat/ginger] to run the specs against 16 different versions of actionmailer.
+## Copyright
 
-== Copyright
+Copyright (c) 2009-2010 Myron Marston, Kashless.org.
+Copyright (c) 2014, Watu
 
-Copyright (c) 2009-2010 Myron Marston, Kashless.org. See LICENSE for details.
+See LICENSE for details.

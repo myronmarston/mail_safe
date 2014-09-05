@@ -7,19 +7,18 @@ module MailSafe
         replaced_addresses = {}
 
         ADDRESS_TYPES.each do |address_type|
-          if addresses = mail.send(address_type)
+          if addresses = mail[address_type].try(:value)
             new_addresses = []
 
-            addresses.each do |a|
+            Array(addresses).each do |a|
               new_addresses << if MailSafe::Config.is_internal_address?(a)
-                a
-              else
-                (replaced_addresses[address_type] ||= []) << a
-                MailSafe::Config.get_replacement_address(a)
-              end
+                                 a
+                               else
+                                 (replaced_addresses[address_type] ||= []) << a
+                                 MailSafe::Config.get_replacement_address(a)
+                               end
             end
-
-            mail.send("#{address_type}=", new_addresses)
+            mail.send("#{address_type}=", new_addresses.uniq)
           end
         end
 
@@ -95,28 +94,9 @@ The original recipients were:
         add_postscript(part, postscript)
       end
 
-      if ActionMailer::VERSION::MAJOR < 3
-        include ::ActionMailer::Utils
-
-        def add_postscript(part, postscript)
-          body = part.body + postscript
-
-          # taken from action mailer:
-          # http://github.com/rails/rails/blob/05d7409ae5fd423be6f747ad553f659fcecbf548/actionmailer/lib/action_mailer/part.rb#L58-65
-          case part.content_transfer_encoding.to_s.downcase
-            when "base64" then
-              part.body = TMail::Base64.folding_encode(body)
-            when "quoted-printable"
-              part.body = [normalize_new_lines(body)].pack("M*")
-            else
-              part.body = body
-          end
-        end
-      else
-        def add_postscript(part, postscript)
-          postscript = postscript.html_safe  if postscript.respond_to?(:html_safe)
-          part.body = part.body.to_s + postscript
-        end
+      def add_postscript(part, postscript)
+        postscript = postscript.html_safe  if postscript.respond_to?(:html_safe)
+        part.body = part.body.to_s + postscript
       end
     end
   end
