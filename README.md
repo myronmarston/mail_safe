@@ -86,6 +86,7 @@ Tested with [Travis](https://travis-ci.org/watu/mail_safe) using Ruby 1.9, 2.0 a
 ## Copyright
 
 Copyright (c) 2009-2010 Myron Marston, Kashless.org.
+
 Copyright (c) 2014, Watu
 
 See LICENSE for details.
