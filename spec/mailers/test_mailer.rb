@@ -10,8 +10,7 @@ class TestMailer < ActionMailer::Base
 
   def html_message(options)
     setup = setup_recipients(options)
-    body = "<p>Here is the message body.</p>"
-    body = body.html_safe  if body.respond_to?(:html_safe)
+    body = "<p>Here is the message body.</p>".html_safe
     mail({from: 'test@mailsafe.org',
          subject: "Html Message Test"}.update(setup)) do |format|
       format.html { render text: body }
@@ -20,8 +19,7 @@ class TestMailer < ActionMailer::Base
 
   def multipart_message(options)
     setup = setup_recipients(options)
-    html_body = "<p>Here is the message body.</p>"
-    html_body = html_body.html_safe  if html_body.respond_to?(:html_safe)
+    html_body = "<p>Here is the message body.</p>".html_safe
     mail({from: 'test@mailsafe.org',
          subject: "Html Message Test"}.update(setup)) do |format|
       format.text { render text: "Here is the message body." }
