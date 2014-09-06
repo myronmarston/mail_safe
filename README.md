@@ -87,7 +87,7 @@ Tested with [Travis](https://travis-ci.org/watu/mail_safe) using Ruby 1.9, 2.0 a
 
 * Updated to manage the gem using bundler.
 * Updated to run tests with RSpec 3.
-* Updated to support actionmailer >= 3.2 (support for older versions was removed to simplify code)
+* Updated to support actionmailer >= 3.2 (support for older versions was removed to simplify code).
 * Changed ginger in favor of appraisal to test the gem against different versions of actionmailer.
 * Added support for continuous integrations with Travis (can be locally emulated with wwtd).
 * Fixed https://github.com/myronmarston/mail_safe/issues/7
