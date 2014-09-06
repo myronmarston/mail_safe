@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Myron Marston", "Juan José Conti"]
   spec.email         = ["myron.marston@gmail.com", "jjconti@gmail.com"]
   spec.summary       = %q{Keep your ActionMailer emails from escaping into the wild during development.}
-  spec.description   = %q{Mail safe provides a safety net while you"re developing an application that uses ActionMailer.
+  spec.description   = %q{Mail safe provides a safety net while you're developing an application that uses ActionMailer.
                           It keeps emails from escaping into the wild.
 
                           Once you"ve installed and configured this gem, you can rest assure that your app won't send
