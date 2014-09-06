@@ -83,6 +83,17 @@ When mail safe replaces an email address, it appends a notice to the bottom of t
 
 Tested with [Travis](https://travis-ci.org/watu/mail_safe) using Ruby 1.9, 2.0 and 2.1 against actionmailer 3.2, 4.0 and 4.1. ![Build Status](https://travis-ci.org/watu/mail_safe.svg?branch=master)
 
+## Change log for 0.3.2 version
+
+* Updated to manage the gem using bundler.
+* Updated to run tests with RSpec 3.
+* Updated to support actionmailer >= 3.2 (support for older versions was removed to simplify code)
+* Changed ginger in favor of appraisal to test the gem against different versions of actionmailer.
+* Added support for continuous integrations with Travis (can be locally emulated with wwtd).
+* Fixed https://github.com/myronmarston/mail_safe/issues/7
+* Fixed https://github.com/myronmarston/mail_safe/issues/3
+* Updated source code page with some fancy badges.
+
 ## Copyright
 
 Copyright (c) 2009-2010 Myron Marston, Kashless.org.
