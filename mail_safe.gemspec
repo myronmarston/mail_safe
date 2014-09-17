@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Myron Marston", "Juan José Conti"]
   spec.email         = ["myron.marston@gmail.com", "jjconti@gmail.com"]
   spec.summary       = %q{Keep your ActionMailer emails from escaping into the wild during development.}
-  spec.description   = %q{Mail safe provides a safety net while you"re developing an application that uses ActionMailer.
+  spec.description   = %q{Mail safe provides a safety net while you're developing an application that uses ActionMailer.
                           It keeps emails from escaping into the wild.
 
                           Once you"ve installed and configured this gem, you can rest assure that your app won't send
@@ -25,12 +25,12 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "actionmailer", ">= 3.0.0"
-  spec.add_dependency "coveralls"
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec", "~> 3.0", ">= 3.0.0"
   spec.add_development_dependency "appraisal"
+  spec.add_development_dependency "coveralls"
 
   spec.required_ruby_version = ">= 1.9.3"
 end

@@ -95,8 +95,7 @@ The original recipients were:
       end
 
       def add_postscript(part, postscript)
-        postscript = postscript.html_safe  if postscript.respond_to?(:html_safe)
-        part.body = part.body.to_s + postscript
+        part.body = part.body.to_s + postscript.html_safe
       end
     end
   end
