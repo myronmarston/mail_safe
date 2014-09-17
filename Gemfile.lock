@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mail_safe (0.3.2)
+    mail_safe (0.3.3)
       actionmailer (>= 3.0.0)
 
 GEM
