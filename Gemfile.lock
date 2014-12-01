@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mail_safe (0.3.3)
+    mail_safe (0.3.4)
       actionmailer (>= 3.0.0)
 
 GEM
@@ -46,7 +46,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
-    minitest (5.4.1)
+    minitest (5.4.2)
     multi_json (1.10.1)
     polyglot (0.3.5)
     rack (1.5.2)
