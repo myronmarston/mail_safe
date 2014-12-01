@@ -10,7 +10,7 @@ module MailSafe
         when Proc   then internal_address_definition.call(address)
         else
           return address.downcase == developer_email_address.downcase if developer_email_address
-          raise InvalidConfigSettingError.new("internal_address_definition must be a Regexp or Proc, but was: #{internal_address_definition.class.to_s}")
+          raise InvalidConfigSettingError.new("Ensure internal_address_definition is a Regexp or a Proc. It was: #{internal_address_definition.class.to_s}")
       end
     end
 
@@ -22,7 +22,7 @@ module MailSafe
         when Proc   then replacement_address.call(original_address)
         else
           return developer_email_address if developer_email_address
-          raise InvalidConfigSettingError.new("replacement_address must be a String or Proc, but was: #{replacement_address.class.to_s}")
+          raise InvalidConfigSettingError.new("Ensure replacement_address is a String or a Proc. It was: #{replacement_address.class.to_s}. Or at least set your user email in git.")
       end
     end
 
