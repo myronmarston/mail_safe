@@ -59,7 +59,7 @@ These settings can also take procs if you need something more flexible:
     }
 
     # Useful if your mail server allows + dynamic email addresses like gmail.
-    MailSafe::Config.replacement_address = lambda { |address| "my-address+#{address.gsub(/[\w\-.]/, '_')}@gmail.com" }
+    MailSafe::Config.replacement_address = lambda { |address| "my-address+#{address.gsub(/[^\w\-.]/, '_at_')}@gmail.com" }
   end
 ```
 
