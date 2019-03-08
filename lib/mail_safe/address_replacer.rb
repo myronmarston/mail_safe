@@ -29,6 +29,7 @@ module MailSafe
 
       def add_body_postscript(part, replaced_addresses)
         return unless replaced_addresses.size > 0
+        return if part.attachment?
 
         case part.content_type
           when %r{^text/plain} then add_text_postscript(part, replaced_addresses)
